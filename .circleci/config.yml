@@ -217,7 +217,7 @@ jobs:
       - install_awscli
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["4c:e8:63:fd:3b:21:fd:df:91:54:71:da:4a:c3:ea:74"]
+          fingerprints: [""]
       - attach_workspace:
           at: ~/
       - run:
@@ -400,8 +400,8 @@ workflows:
           filters:
             branches:
               only: [master]
-#       - configure-infrastructure:
-#           requires: [deploy-infrastructure]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
 #       - run-migrations:
 #           requires: [configure-infrastructure]
 #       - deploy-frontend:
