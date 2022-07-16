@@ -378,7 +378,7 @@ jobs:
       - install_awscli
       - install_nodejs
       - run:
-          name: Save Old Workflow ID to kvdb.io
+          name: Update Cloudformation Distribution
           command: |
             export OLD_WORKFLOW_ID=$(aws cloudformation \
                       list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
@@ -396,21 +396,26 @@ jobs:
 
 # cleanup:
 #     docker:
-#       # Docker image here
+#       - image: cimg/base:stable
 #     steps:
-#       # Checkout code from git
-#       - run:
-#           name: Get old stack workflow id
-#           command: |
-#             # your code here
-#             export OldWorkflowID="the id here"
-#             export STACKS=[] #put the list of stacks here
+#       - checkout
+#       - install_awscli
+#       - install_nodejs
 #       - run:
 #           name: Remove old stacks and files
 #           command: |
+#             export STACKS=($(aws cloudformation list-stacks \
+#                --query "StackSummaries[*].Stackname" \
+#                --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
+#             echo Stack names: "${STACKS[@]}"
+
+#             export OldWorkflowID=$(curl --insecure https://kvdb.io/${H8SH6ADKgJKkC3fWVsSjfW}/old_workflow_id)
+
 #             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
 #             then
-#               # your code here
+#               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+#               aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
+#               aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
 #             fi
             
 
