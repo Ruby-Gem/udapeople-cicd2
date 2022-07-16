@@ -328,7 +328,7 @@ jobs:
       - checkout
       - install_awscli
       - install_nodejs
-      
+
       - run:
           name: Backend url
           command: |
@@ -362,7 +362,7 @@ jobs:
             if curl -s $FRONTEND_WEBSITE  | grep "Welcome"
             then
                 # Change this to 0 after the job fails
-              exit 0
+              exit 1
             else
               exit 1
             fi
