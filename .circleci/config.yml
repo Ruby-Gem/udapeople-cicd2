@@ -328,7 +328,8 @@ jobs:
       - checkout
       - install_awscli
       - install_nodejs
-            - run:
+      
+      - run:
           name: Backend url
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances  \
