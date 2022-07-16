@@ -280,7 +280,7 @@ jobs:
       - run:
           name: Deploy frontend objects
           command: |
-           cd frontend
+            cd frontend
             npm run build
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment
@@ -357,8 +357,7 @@ jobs:
       - run:
           name: Frontend smoke test
           command: |
-            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com"
-            echo ${URL}
+            FRONTEND_WEBSITE="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com"
             if curl -s $FRONTEND_WEBSITE  | grep "Welcome"
             then
                 # Change this to 0 after the job fails
@@ -370,21 +369,26 @@ jobs:
       - revert-migrations
       # Here's where you will add some code to rollback on failure  
 
-#   cloudfront-update:
-#     docker:
-#        - image: cimg/base:stable
-#     steps:
-#       -checkout
-#       -install_awscli
-#       -install_nodejs
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             # your code here
-#       - run:
-#           name: Update cloudfront distribution
-#           command: |
-#             # your code here
+  # cloudfront-update:
+  #   docker:
+  #      - image: cimg/base:stable
+  #   steps:
+  #     - checkout
+  #     - install_awscli
+  #     - install_nodejs
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           cd frontend
+  #           npm install
+  #     - run:
+  #         name: Update cloudfront distribution
+  #         command: |
+  #            aws cloudformation deploy \
+  #              --template-file .circleci/files/cloudfront.yml \
+  #              --stack-name InitialStack \
+  #              --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+  #              --tags project=udapeople
 #       # Here's where you will add some code to rollback on failure  
 
 # cleanup:
