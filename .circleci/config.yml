@@ -378,7 +378,7 @@ jobs:
       - install_awscli
       - install_nodejs
       - run:
-          name: save Old Workflow ID to kvdb.io
+          name: Save Old Workflow ID to kvdb.io
           command: |
             export OLD_WORKFLOW_ID=$(aws cloudformation \
                       list-exports --query "Exports[?Name==\'WorkflowID\'].Value" \
@@ -392,7 +392,7 @@ jobs:
              aws cloudformation deploy \
                --template-file .circleci/files/cloudfront.yml \
                --stack-name InitialStack \
-               --parameter-overrides WorkflowID=${CIRCLE_WORKFLOW_ID:0:7}" \
+               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
       - destroy-environment
       - revert-migration
 #       # Here's where you will add some code to rollback on failure  
