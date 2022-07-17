@@ -229,8 +229,6 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
 
-#       # Here's where you will add some code to rollback on failure   
-
   run-migrations:
     docker:
       - image: cimg/node:13.8.0
@@ -367,7 +365,7 @@ jobs:
             fi
       - destroy-environment
       - revert-migrations
-        
+
 
   cloudfront-update:
     docker:
@@ -391,7 +389,6 @@ jobs:
                --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
       - destroy-environment
       - revert-migrations
-#       # Here's where you will add some code to rollback on failure  
 
 # cleanup:
 #     docker:
