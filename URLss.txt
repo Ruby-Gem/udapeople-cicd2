@@ -1,1 +1,11 @@
-Github URL: https://github.com/Ruby-Gem
+[URL01] Github URL: 
+
+https://github.com/Ruby-Gem/udapeople-cicd2
+
+
+[URL02] S3 Bucket URL: 
+
+http://udapeople-6133264.s3-website-us-east-1.amazonaws.com
+
+
+[URL03] Cloudfront URL
